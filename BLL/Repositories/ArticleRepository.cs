@@ -9,13 +9,13 @@ namespace Repositories
 {
     public class ArticleRepository : BaseRepository<Article>
     {
-        public ArticleRepository()
+        public ArticleRepository(SqlDbContext context) : base(context)
         {
-            context = new SqlDbContext<Article>();
+            
         }
         public Article GetById(int id)
         {
-            return context.Entities
+            return Dbset
                 .Where(a => a.Id == id)
                 .SingleOrDefault();
         }

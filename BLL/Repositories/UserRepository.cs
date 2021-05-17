@@ -9,17 +9,16 @@ namespace Repositories
 {
     public class UserRepository : BaseRepository<User>
     {
-        public UserRepository()
+        public UserRepository(SqlDbContext context) : base(context)
         {
-            context = new SqlDbContext<User>();
         }
         public User Find(int id)
         {
-            return context.Entities.Where(u => u.Id == id).SingleOrDefault();
+            return Dbset.Find(id);
         }
         public User GetByName(string name)
         {
-            return context.Entities
+            return Dbset
                 .Where(u => u.Name == name)
                 .SingleOrDefault();
         }

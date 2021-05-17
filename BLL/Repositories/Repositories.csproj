@@ -53,6 +53,11 @@
   <ItemGroup>
     <Compile Include="ArticleRepository.cs" />
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="Migrations\202105171225304_init.cs" />
+    <Compile Include="Migrations\202105171225304_init.designer.cs">
+      <DependentUpon>202105171225304_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="SqlDbContext.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,6 +71,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202105171225304_init.resx">
+      <DependentUpon>202105171225304_init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

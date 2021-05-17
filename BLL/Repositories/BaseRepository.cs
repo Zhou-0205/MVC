@@ -1,28 +1,37 @@
 ﻿using Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class BaseRepository<T> where T : BaseEntity
+    public class BaseRepository<T> where T : BaseEntity, new()
     {
-        protected SqlDbContext<T> context;
-        public BaseRepository()
+        protected SqlDbContext context;
+        protected DbSet<T> Dbset;
+        public BaseRepository(SqlDbContext context)
         {
-
+            this.context = context;
+            Dbset = context.Set<T>();
         }
         public int Save(T entity)
         {
-            context.Entities.Add(entity);
+            Dbset.Add(entity);
             context.SaveChanges();
             return entity.Id;
         }
         public void Remove(T entity)
         {
 
+        }
+        public T Load(int id)
+        {
+            T entity = new T { Id = id };
+            Dbset.Attach(entity);
+            return entity;
         }
     }
 }

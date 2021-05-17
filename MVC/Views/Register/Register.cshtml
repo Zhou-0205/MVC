@@ -1,6 +1,6 @@
 ﻿@model MVC.Models.RegisterModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Register";
 }
 
 <h2>注册</h2>
@@ -9,19 +9,21 @@
     <div>
         <label>用户</label>
         @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
     </div>
-
     <div>
         <label>密码</label>
         @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Password)
     </div>
-
     <div>
         <label>确认密码</label>
-        @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.ConfirmPassWord, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ConfirmPassWord)
     </div>
-
-    <button type="submit">提交</button>
+    <div>
+        <button type="submit">提交</button>
+    </div>
 }
 
 

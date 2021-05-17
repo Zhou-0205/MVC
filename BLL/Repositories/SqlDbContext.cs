@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class SqlDbContext<T> : SqlDbContext where T : BaseEntity
-    {
-        public IDbSet<T> Entities { get; set; }
-    }
+    //public class SqlDbContext<T> : SqlDbContext where T : BaseEntity
+    //{
+    //    public IDbSet<T> Entities { get; set; }
+    //}
     public class SqlDbContext : DbContext
     {
         public SqlDbContext() : base("18bang")
