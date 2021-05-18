@@ -135,8 +135,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\NewModel.cs" />
-    <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -195,13 +194,17 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BLL\Entities\Entities.csproj">
-      <Project>{fbb6a1a7-cb33-42a4-a4c4-b35a70bca4d8}</Project>
-      <Name>Entities</Name>
+    <ProjectReference Include="..\SRV\MockService\MockService.csproj">
+      <Project>{4e61db4e-d1ad-4c90-81c8-72727b8d96e7}</Project>
+      <Name>MockService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BLL\Repositories\Repositories.csproj">
-      <Project>{c0b08cf8-84db-4117-b16f-19b640233743}</Project>
-      <Name>Repositories</Name>
+    <ProjectReference Include="..\SRV\ProdService\ProdService.csproj">
+      <Project>{362ef007-cf84-41c5-846a-6d697dcba561}</Project>
+      <Name>ProdService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SRV\ViewModel\ViewModel.csproj">
+      <Project>{bf959bc1-6b97-46d5-a8ce-bc3966975068}</Project>
+      <Name>ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

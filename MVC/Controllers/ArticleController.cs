@@ -1,6 +1,5 @@
-﻿using Entities;
-using MVC.Models;
-using Repositories;
+﻿using ProdService;
+using SRV.ViewMdel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +10,10 @@ namespace MVC.Controllers
 {
     public class ArticleController : Controller
     {
-        private UserRepository userRepository;
-        private ArticleRepository articleRepository;
+        ArticleService articleService;
         public ArticleController()
         {
-            SqlDbContext context = new SqlDbContext();
-            userRepository = new UserRepository(context);
-            articleRepository = new ArticleRepository(context);
+            articleService = new ArticleService();
         }
         public ActionResult Index()
         {
@@ -30,14 +26,7 @@ namespace MVC.Controllers
         [HttpPost]
         public ActionResult New(NewModel model)
         {
-            Article article = new Article
-            {
-                Title = model.Title,
-                Body = model.Body
-            };
-            User author = userRepository.Load(1);
-            article.Author = author;
-            articleRepository.Save(article);
+            articleService.Publish(model,1);
             return View();
         }
     }
