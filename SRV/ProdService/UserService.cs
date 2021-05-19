@@ -1,15 +1,17 @@
 ﻿using Entities;
 using Repositories;
 using SRV.ViewMdel;
+using Global;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ProdService
 {
-    public class UserService
+    public class UserService : BaseService
     {
         private UserRepository userRepository;
         public UserService()
@@ -22,14 +24,22 @@ namespace ProdService
             User user = new User
             {
                 Name = model.Name,
-                Password = model.Password
+                Password = model.Password.MD5Encrypt()
             };
-            return user.Id;
+            int userId = userRepository.Save(user);
+            return userId;
         }
-
-        public RegisterModel GetByName(string name)
+        public UserModel GetById(int id)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("");
+        }
+        public UserModel GetByName(string name)
+        {
+            throw new NotImplementedException("");
+        }
+        public string GetPasswordById(int currentUserId)
+        {
+            throw new NotImplementedException("");
         }
     }
 }
