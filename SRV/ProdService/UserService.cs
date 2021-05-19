@@ -16,7 +16,7 @@ namespace ProdService
         private UserRepository userRepository;
         public UserService()
         {
-            SqlDbContext context = new SqlDbContext();
+            //SqlDbContext context = new SqlDbContext();
             userRepository = new UserRepository(context);
         }
         public int Save(RegisterModel model)

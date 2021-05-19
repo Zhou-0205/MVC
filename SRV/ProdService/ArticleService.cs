@@ -15,7 +15,7 @@ namespace ProdService
         private ArticleRepository articleRepository;
         public ArticleService()
         {
-            SqlDbContext context = new SqlDbContext();
+            //SqlDbContext context = new SqlDbContext();
             userRepository = new UserRepository(context);
             articleRepository = new ArticleRepository(context);
         }

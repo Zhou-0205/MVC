@@ -16,8 +16,19 @@ namespace ProdService
         private UserRepository userRepository;
         public BaseService()
         {
-            SqlDbContext context = new SqlDbContext();
+            //SqlDbContext context = new SqlDbContext();
             userRepository = new UserRepository(context);
+        }
+        protected SqlDbContext context
+        {
+            get
+            {
+                if (HttpContext.Current.Items[Keys.DbContext] == null)
+                {
+                    HttpContext.Current.Items[Keys.DbContext] = new SqlDbContext();
+                }//else nothing
+                return (SqlDbContext)HttpContext.Current.Items[Keys.DbContext];
+            }
         }
 
         public User GetCurrentUser(bool userPoxy = true)
@@ -45,7 +56,7 @@ namespace ProdService
                 userRepository.Load(currentUserId) :
                 userRepository.Find(currentUserId);
 
-            if (currentUser.Password != pwdInCookie.MD5Encrypt())
+            if (currentUser.Password != pwdInCookie)
             {
                 throw new ArgumentException("");
             }
