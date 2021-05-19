@@ -14,7 +14,7 @@ namespace MVC.Controllers
         UserService userService;
         public RegisterController()
         {
-            userService = new UserService();
+            userService = new ProdService.UserService();
         }
 
         [ModelErrorTransferFilter]
@@ -27,16 +27,20 @@ namespace MVC.Controllers
         [ModelErrorTransferFilter]
         public ActionResult Register(RegisterModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            if (userService.GetByName(model.Name) != null)
-            {
-                ModelState.AddModelError("Name", "* 用户名不能重复");
-                return RedirectToAction(nameof(Register));
-            }
-            int id = userService.Save(model);
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(model);
+            //}
+            //if (userService.GetByName(model.Name) != null)
+            //{
+            //    ModelState.AddModelError("Name", "* 用户名不能重复");
+            //    return RedirectToAction(nameof(Register));
+            //}
+            int userid = userService.Save(model);
+
+            //HttpCookie cookie = new HttpCookie(Keys.User);
+            //cookie.Values.Add(Keys.Id, userid.ToString());
+            //Response.Cookies.Add(cookie);
 
             return View();
         }

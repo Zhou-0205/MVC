@@ -1,4 +1,5 @@
-﻿using ProdService;
+﻿using MVC.Helpers;
+using ProdService;
 using SRV.ViewMdel;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace MVC.Controllers
         [HttpPost]
         public ActionResult New(NewModel model)
         {
-            articleService.Publish(model,1);
+            articleService.Publish(model);
             return View();
         }
     }
