@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SRV.ViewMdel;
+using Global;
 
 namespace MVC.Controllers
 {
@@ -28,12 +29,19 @@ namespace MVC.Controllers
                 ModelState.AddModelError("Name", "* 用户不存在");
                 return View();
             }
-            if (user.Password != model.Password)
+            if (user.Password != model.Password.MD5Encrypt())
             {
                 ModelState.AddModelError("Password","* 密码错误");
                 return View();
             }
             int userId = user.Id;
+            string passWord = user.Password;
+
+            HttpCookie cookie = new HttpCookie(Keys.User);
+            cookie.Values.Add(Keys.Id, userId.ToString());
+            cookie.Values.Add(Keys.PassWord, passWord.ToString().MD5Encrypt());
+            Response.Cookies.Add(cookie);
+
             return View();
         }
     }
