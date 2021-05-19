@@ -41,7 +41,7 @@ namespace MVC.Controllers
 
             //HttpCookie cookie = new HttpCookie(Keys.User);
             //cookie.Values.Add(Keys.Id, userId.ToString());
-            //cookie.Values.Add(Keys.PassWord, userService.GetPasswordById(userId).ToString().MD5Encrypt());
+            //cookie.Values.Add(Keys.PassWord,model.Password.ToString().MD5Encrypt());
             //Response.Cookies.Add(cookie);
 
             return View();

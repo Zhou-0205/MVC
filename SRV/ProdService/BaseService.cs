@@ -4,6 +4,7 @@ using Repositories;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,10 +26,48 @@ namespace ProdService
             {
                 if (HttpContext.Current.Items[Keys.DbContext] == null)
                 {
-                    HttpContext.Current.Items[Keys.DbContext] = new SqlDbContext();
+                    SqlDbContext dbContext = new SqlDbContext();
+                    dbContext.Database.BeginTransaction();
+                    HttpContext.Current.Items[Keys.DbContext] = dbContext;
                 }//else nothing
                 return (SqlDbContext)HttpContext.Current.Items[Keys.DbContext];
             }
+        }
+
+        private static SqlDbContext GetContextFromHttp()
+        {
+            object objContext = HttpContext.Current.Items[Keys.DbContext];
+            return objContext as SqlDbContext;
+        }
+
+        public static void Commit()
+        {
+            SqlDbContext context = GetContextFromHttp();
+            if (context != null)
+            {
+                using (context)
+                {
+                    using (DbContextTransaction transaction = context.Database.CurrentTransaction)
+                    {
+                        transaction.Commit();
+                    }
+                }
+            }//else nothing
+        }
+
+        public static void RollBack()
+        {
+            SqlDbContext context = GetContextFromHttp();
+            if (context != null)
+            {
+                using (context)
+                {
+                    using (DbContextTransaction transaction = context.Database.CurrentTransaction)
+                    {
+                        transaction.Rollback();
+                    }
+                }
+            }//else nothing
         }
 
         public User GetCurrentUser(bool userPoxy = true)
