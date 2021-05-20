@@ -1,6 +1,8 @@
-﻿using Entities;
+﻿using AutoMapper;
+using Entities;
 using Global;
 using Repositories;
+using SRV.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -15,10 +17,23 @@ namespace ProdService
     public class BaseService
     {
         private UserRepository userRepository;
+        protected readonly static MapperConfiguration config;
+        static BaseService()
+        {
+            config = new MapperConfiguration(
+                cfg =>
+                {
+                    cfg.CreateMap<Article, SingleModel>().ReverseMap();
+                }
+                );
+        }
         public BaseService()
         {
-            //SqlDbContext context = new SqlDbContext();
             userRepository = new UserRepository(context);
+        }
+        protected IMapper mapper
+        {
+            get { return config.CreateMapper(); }
         }
         protected SqlDbContext context
         {
@@ -70,7 +85,7 @@ namespace ProdService
             }//else nothing
         }
 
-        public User GetCurrentUser(bool userPoxy = true)
+        public User GetCurrentUser(bool userProxy = true)
         {
             NameValueCollection userInfo =
                 HttpContext.Current.Request.Cookies[Keys.User].Values;
@@ -91,7 +106,7 @@ namespace ProdService
                 throw new ArgumentException("");
             }
 
-            User currentUser = userPoxy ?
+            User currentUser = userProxy ?
                 userRepository.Load(currentUserId) :
                 userRepository.Find(currentUserId);
 
