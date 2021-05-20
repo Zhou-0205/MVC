@@ -1,6 +1,6 @@
 ﻿using Entities;
 using Repositories;
-using SRV.ViewMdel;
+using SRV.ViewModel;
 using Global;
 using System;
 using System.Collections.Generic;

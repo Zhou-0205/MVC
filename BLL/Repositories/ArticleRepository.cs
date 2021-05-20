@@ -12,12 +12,6 @@ namespace Repositories
         public ArticleRepository(SqlDbContext context) : base(context)
         {
             
-        }
-        public Article GetById(int id)
-        {
-            return Dbset
-                .Where(a => a.Id == id)
-                .SingleOrDefault();
-        }
+        } 
     }
 }

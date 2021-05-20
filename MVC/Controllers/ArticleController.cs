@@ -1,6 +1,6 @@
 ﻿using MVC.Helpers;
 using ProdService;
-using SRV.ViewMdel;
+using SRV.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +29,11 @@ namespace MVC.Controllers
         {
             articleService.Publish(model);
             return View();
+        }
+        public ActionResult Single(int id)
+        {
+            SingleModel model = articleService.GetById(id);
+            return View(model);
         }
     }
 }

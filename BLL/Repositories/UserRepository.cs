@@ -12,10 +12,6 @@ namespace Repositories
         public UserRepository(SqlDbContext context) : base(context)
         {
         }
-        public User Find(int id)
-        {
-            return Dbset.Find(id);
-        }
         public User GetByName(string name)
         {
             return Dbset

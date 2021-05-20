@@ -1,7 +1,7 @@
 ﻿using Global;
 using MVC.Filters;
 using ProdService;
-using SRV.ViewMdel;
+using SRV.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -27,6 +27,10 @@ namespace Repositories
         {
 
         }
+        public T Find(int id)
+        {
+            return Dbset.Find(id);
+        }
         public T Load(int id)
         {
             T entity = new T { Id = id };

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SRV.ViewMdel;
+using SRV.ViewModel;
 using Global;
 
 namespace MVC.Controllers
