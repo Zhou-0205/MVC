@@ -24,6 +24,7 @@ namespace ProdService
                 cfg =>
                 {
                     cfg.CreateMap<Article, SingleModel>().ReverseMap();
+                    cfg.CreateMap<Article, EditModel>().ReverseMap();
                 }
                 );
         }

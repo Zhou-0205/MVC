@@ -35,5 +35,16 @@ namespace MVC.Controllers
             SingleModel model = articleService.GetById(id);
             return View(model);
         }
+        public ActionResult Edit(int id)
+        {
+            EditModel model= articleService.GetEdit(id);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Edit(int id, EditModel model)
+        {
+            articleService.Edit(id, model);
+            return View(model);
+        }
     }
 }

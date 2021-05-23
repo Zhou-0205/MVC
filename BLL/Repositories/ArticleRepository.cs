@@ -12,6 +12,10 @@ namespace Repositories
         public ArticleRepository(SqlDbContext context) : base(context)
         {
             
-        } 
+        }
+        public void Edit()
+        {
+            context.SaveChanges();
+        }
     }
 }

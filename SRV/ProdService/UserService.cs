@@ -35,7 +35,13 @@ namespace ProdService
         }
         public UserModel GetByName(string name)
         {
-            throw new NotImplementedException("");
+            User user= userRepository.GetByName(name);
+            return new UserModel
+            {
+                Name=user.Name,
+                Password=user.Password,
+                Id=user.Id
+            };
         }
         public string GetPasswordById(int currentUserId)
         {

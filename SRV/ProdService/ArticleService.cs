@@ -21,34 +21,37 @@ namespace ProdService
         }
         public int Publish(NewModel model)
         {
-            if (GetCurrentUser() == null)
-            {
-                throw new ArgumentException("");
-            }
             Article article = new Article
             {
                 Title = model.Title,
                 Body = model.Body,
-                Author = GetCurrentUser(true)
+                Author = GetCurrentUser(false)
             };
-
             articleRepository.Save(article);
             return article.Id;
         }
+        public void Edit(int id, EditModel model)
+        {
+            Article article = articleRepository.Find(id);
+            mapper.Map<EditModel, Article>(model, article);
+
+            articleRepository.Edit();
+        }
+
+        public EditModel GetEdit(int id)
+        {
+            Article article = articleRepository.Find(id);
+            EditModel model = mapper.Map<EditModel>(article);
+
+            return model;
+        }
+
         public SingleModel GetById(int id)
         {
             Article article = articleRepository.Find(id);
-
             SingleModel model = mapper.Map<SingleModel>(article);
 
             return model;
-
-            //return new SingleModel
-            //{
-            //    Title = article.Title,
-            //    Body = article.Body,
-            //    Author = article.Author
-            //};
         }
     }
 }

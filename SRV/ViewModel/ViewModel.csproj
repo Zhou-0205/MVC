@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditModel.cs" />
     <Compile Include="LogOnModel.cs" />
     <Compile Include="NewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
