@@ -3,35 +3,120 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .foot {
+            width: 1200px;
+            height: 50px;
+            clear: both;
+            padding-left: 10px;
+            padding-top: 20px;
+        }
+
+        .put {
+            width: 400px;
+            height: 50px;
+            float: right;
+        }
+    </style>
 </head>
+@{
+    string userId = Server.UrlDecode(HttpContext.Current.Request.Cookies["User"]?.Values["Id"]);
+    string userName = Server.UrlDecode(HttpContext.Current.Request.Cookies["User"]?.Values["Name"]);
+}
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+    <header>
+        <div class="navbar navbar-default navbar-fixed-top" style="border-color: gainsboro;background-color: white">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    <a href="#"><span class="fa fa-bell fa-fw"></span></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">我的</a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item">
+                                    <a href="/Register/Message"><span class="fa fa-bell fa-fw"></span>我的消息</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">文章</a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item">
+                                    <a href="/Article/List"><span class="fa fa-list fa-fw"></span>文章列表</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="/Article/New"><span class="fa fa-folder-open fa-fw"></span>新建文章</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            @if (HttpContext.Current.Request.Cookies["User"] != null)
+                            {
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span>@userName</span><span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <a href="/User/Info/@userId"><span class="fa fa-camera fa-fw"></span>个人资料</a>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a href="/Register/Register"><span class="fa fa-registered"></span>注册</a>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a href="/Log/Off"><span class="fa fa-sign-out"></span>退出登录</a>
+                                    </li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">未登录<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        @if (@Context.Request.Path == "/Log/On")
+                                        {
+                                            <a href="#"><span class="fa fa-sign-in"></span>登录</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="/Log/On?prepage=@Context.Request.Path"><span class="fa fa-sign-in"></span>登录</a>
+                                        }
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a href="/Register/Register"><span class="fa fa-registered"></span>注册</a>
+                                    </li>
+                                </ul>
+                            }
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+    </header>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <div class="foot">
+                <a href="#">关于我们</a>&nbsp;|
+                <a href="#">常见问题</a>&nbsp;|
+                <a href="#">意见建议</a>&nbsp;|
+                <a href="#">历史通知</a>&nbsp;|
+                <a href="#" style="color:darkseagreen">友情捐赠</a>&nbsp;|
+                <a href="#">诚邀合伙人</a><br />
+                友情链接：
+                <div class="put">
+                    <p><a href="#">渝ICP备18007191号（备案）</a>©2020-首顾科技</p>
+                </div>
+            </div>
         </footer>
     </div>
 

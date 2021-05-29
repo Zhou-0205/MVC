@@ -16,7 +16,7 @@ namespace SRV.ViewModel
         [Required(ErrorMessage = "* 密码不能为空")]
         public string Password { get; set; }
 
-        //[Required(ErrorMessage = "* 确认密码不能为空")]
-        //public string ConfirmPassWord { get; set; }
+        [Required(ErrorMessage = "* 验证码不能为空")]
+        public string Captcha { get; set; }
     }
 }
