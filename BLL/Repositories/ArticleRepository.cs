@@ -13,9 +13,5 @@ namespace Repositories
         {
             
         }
-        public void Edit()
-        {
-            context.SaveChanges();
-        }
     }
 }

@@ -61,6 +61,22 @@
     <Compile Include="Migrations\202105230618347_AddAuthorId.designer.cs">
       <DependentUpon>202105230618347_AddAuthorId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105240637289_AddInvite.cs" />
+    <Compile Include="Migrations\202105240637289_AddInvite.designer.cs">
+      <DependentUpon>202105240637289_AddInvite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105270929210_Addcolumn.cs" />
+    <Compile Include="Migrations\202105270929210_Addcolumn.designer.cs">
+      <DependentUpon>202105270929210_Addcolumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105280324447_Addcolumn1.cs" />
+    <Compile Include="Migrations\202105280324447_Addcolumn1.designer.cs">
+      <DependentUpon>202105280324447_Addcolumn1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105280655041_Addcolumnmonth.cs" />
+    <Compile Include="Migrations\202105280655041_Addcolumnmonth.designer.cs">
+      <DependentUpon>202105280655041_Addcolumnmonth.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="SqlDbContext.cs" />
     <Compile Include="UserRepository.cs" />
@@ -82,6 +98,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105230618347_AddAuthorId.resx">
       <DependentUpon>202105230618347_AddAuthorId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105240637289_AddInvite.resx">
+      <DependentUpon>202105240637289_AddInvite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105270929210_Addcolumn.resx">
+      <DependentUpon>202105270929210_Addcolumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105280324447_Addcolumn1.resx">
+      <DependentUpon>202105280324447_Addcolumn1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105280655041_Addcolumnmonth.resx">
+      <DependentUpon>202105280655041_Addcolumnmonth.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -25,6 +25,8 @@ namespace ProdService
                 {
                     cfg.CreateMap<Article, SingleModel>().ReverseMap();
                     cfg.CreateMap<Article, EditModel>().ReverseMap();
+                    cfg.CreateMap<User, UserModel>().ReverseMap();
+                    cfg.CreateMap<User, UserInfoModel>().ReverseMap();
                 }
                 );
         }
@@ -86,7 +88,7 @@ namespace ProdService
             }//else nothing
         }
 
-        public User GetCurrentUser(bool userProxy = true)
+        protected User GetCurrentUser(bool userProxy = true)
         {
             NameValueCollection userInfo =
                 HttpContext.Current.Request.Cookies[Keys.User].Values;

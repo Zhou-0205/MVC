@@ -27,6 +27,10 @@ namespace Repositories
         {
 
         }
+        public void Edit()
+        {
+            context.SaveChanges();
+        }
         public T Find(int id)
         {
             return Dbset.Find(id);

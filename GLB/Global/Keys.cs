@@ -12,7 +12,9 @@ namespace Global
         public const string Get = "GET";
         public const string User = "User";
         public const string Id = "Id";
+        public const string Name = "Name";
         public const string PassWord = "PassWord";
         public const string DbContext = "DbContext";
+        public const string Captcha = "Captcha";
     }
 }
