@@ -39,8 +39,6 @@ namespace MVC.Filters
             {
                 throw new NotImplementedException("");
             }
-
-            base.OnActionExecuting(filterContext);
         }
     }
 }
