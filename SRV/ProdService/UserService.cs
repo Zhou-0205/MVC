@@ -16,36 +16,40 @@ namespace ProdService
         private UserRepository userRepository;
         public UserService()
         {
-            //SqlDbContext context = new SqlDbContext();
             userRepository = new UserRepository(context);
         }
+
+        public UserInfoModel GetById(int id)
+        {
+            User user = userRepository.Find(id);
+            UserInfoModel model = mapper.Map<UserInfoModel>(user);
+            return model;
+        }
+
+        public void Edit(int id, UserInfoModel model)
+        {
+            User user = userRepository.Find(id);
+            mapper.Map<UserInfoModel, User>(model, user);
+
+            userRepository.Edit();
+        }
+
         public int Save(RegisterModel model)
         {
             User user = new User
             {
                 Name = model.Name,
-                Password = model.Password.MD5Encrypt()
+                Password = model.Password.MD5Encrypt(),
+                InvitedBy = userRepository.GetByName(model.InvitedBy.Name)
             };
-            int userId = userRepository.Save(user);
-            return userId;
-        }
-        public UserModel GetById(int id)
-        {
-            throw new NotImplementedException("");
+            userRepository.Save(user);
+            return user.Id;
         }
         public UserModel GetByName(string name)
         {
-            User user= userRepository.GetByName(name);
-            return new UserModel
-            {
-                Name=user.Name,
-                Password=user.Password,
-                Id=user.Id
-            };
-        }
-        public string GetPasswordById(int currentUserId)
-        {
-            throw new NotImplementedException("");
+            User user = userRepository.GetByName(name);
+            UserModel model = mapper.Map<UserModel>(user);
+            return model;
         }
     }
 }

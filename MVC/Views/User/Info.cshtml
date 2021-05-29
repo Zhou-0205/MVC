@@ -1,0 +1,45 @@
+﻿@model SRV.ViewModel.UserInfoModel
+@{
+    ViewBag.Title = "Info";
+    IDictionary<int, string> months = new Dictionary<int, string>
+{
+        {1,"一月"},
+        {2,"二月"},
+        {3,"三月"},
+        {4,"四月"},
+        {5,"五月"},
+        {6,"六月"},
+        {7,"七月"},
+        {8,"八月"},
+        {9,"九月"},
+        {10,"十月"},
+        {11,"十一月"},
+        {12,"十二月"},
+    };
+}
+
+@using (Html.BeginForm("Info", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <label>头像</label>
+        <img src="@Model.IconPath" style="width:50px;height:80px;" />
+        <input type="file" name="icon" multiple accept="image/*" />
+    </div>
+    <div>
+        <label>性别</label>
+        <label>
+            @Html.RadioButtonFor(m => m.IsMale, true) 男
+        </label>
+        <label>
+            @Html.RadioButtonFor(m => m.IsMale, false) 女
+        </label>
+    </div>
+    <div>
+        @Html.DropDownListFor(m => m.BirthMonth, new SelectList(months, "key", "value"), "--")
+        @Html.EnumDropDownListFor(m => m.Constellation, "--")
+    </div>
+    <div>
+        <button type="submit">提交</button>
+    </div>
+}
+
