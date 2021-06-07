@@ -3,18 +3,52 @@
     ViewBag.Title = "New";
 }
 
+<script src="~/Scripts/jquery.validate.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js" type="text/javascript"></script>
+<script src="~/JavaScript/AddNewSerie.js" type="text/javascript"></script>
+
 @using (Html.BeginForm())
 {
     <div>
         <label>标题</label>
         @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Title)
     </div>
     <div>
         <label>正文</label><br />
         @Html.TextAreaFor(m => m.Body, new { @class = "form-control" })
     </div>
     <div>
+        <label>关键字</label><br />
+        @Html.TextBoxFor(m => m.Keywords, new { @class = "form-control" })
+    </div>
+    <div>
+        <label>系列</label><br />
+        @Html.Action("SerieList", "Article")
+        <button type="button" serie-show-btn data-toggle="modal" data-target="#myModal">+新系列</button>
+    </div>
+    <div>
+        <label>摘要</label><br />
+        @Html.TextBoxFor(m => m.Digest, new { @class = "form-control" })
+    </div>
+    <div>
         <button type="submit">提交</button>
     </div>
 }
-
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加新的系列</h4>
+            </div>
+            <div class="modal-body" serie-form-container>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary" serie-add-btn>提交</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,14 +11,25 @@ namespace MVC.Filters
     {
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (filterContext.Exception == null)
+
+        }
+
+        public override void OnResultExecuted(ResultExecutedContext filterContext)
+        {
+            if (!filterContext.IsChildAction)
             {
-                BaseService.Commit();
+                if (filterContext.Exception == null)
+                {
+                    BaseService.Commit();
+                }
+                else
+                {
+                    BaseService.RollBack();
+                }
             }
-            else
-            {
-                BaseService.RollBack();
-            }
+
+
+            base.OnResultExecuted(filterContext);
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)

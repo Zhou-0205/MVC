@@ -1,4 +1,6 @@
-﻿using MVC.Helpers;
+﻿using Global;
+using MVC.Filters;
+using MVC.Helpers;
 using ProdService;
 using SRV.ViewModel;
 using System;
@@ -11,10 +13,14 @@ namespace MVC.Controllers
 {
     public class ArticleController : Controller
     {
-        ArticleService articleService;
+        private ArticleService articleService;
+        private SerieService serieService;
+        private UserService userService;
         public ArticleController()
         {
             articleService = new ArticleService();
+            serieService = new SerieService();
+            userService = new UserService();
         }
         public ActionResult Index()
         {
@@ -32,12 +38,21 @@ namespace MVC.Controllers
         }
         public ActionResult Single(int id)
         {
-            SingleModel model = articleService.GetById(id);
+            SingleModel model = articleService.GetSingleById(id);
             return View(model);
         }
+        //public ActionResult Appraise(int articleId, Direction direction)
+        //{
+        //    AppraiseModel model = new AppraiseModel
+        //    {
+        //        IsAgree = direction
+        //    };
+        //    articleService.Appraise(articleId, model);
+        //    return View();
+        //}
         public ActionResult Edit(int id)
         {
-            EditModel model= articleService.GetEdit(id);
+            EditModel model = articleService.GetEditById(id);
             return View(model);
         }
         [HttpPost]
@@ -45,6 +60,33 @@ namespace MVC.Controllers
         {
             articleService.Edit(id, model);
             return View(model);
+        }
+        [ChildActionOnly]
+        public PartialViewResult SerieList()
+        {
+            NewModel model = new NewModel
+            {
+                Author = new UserModel
+                {
+                    Series = serieService.GetByCurrentUser()
+                }
+            };
+            return PartialView(model);
+        }
+        public PartialViewResult Serie()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        public PartialViewResult Serie(string serieName)
+        {
+            SerieModel model = new SerieModel
+            {
+                Name = serieName
+            };
+            serieService.Save(model);
+
+            return PartialView();
         }
     }
 }

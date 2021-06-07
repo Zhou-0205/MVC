@@ -1,0 +1,7 @@
+﻿@model SRV.ViewModel.NewModel
+@{
+    Layout = null;
+}
+
+@Html.DropDownListFor(m => m.Belong.Id, new SelectList(Model.Author.Series, "Id", "Name"), "--")
+

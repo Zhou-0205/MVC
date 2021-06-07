@@ -6,6 +6,9 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
     <style>
         .foot {
             width: 1200px;
@@ -23,7 +26,7 @@
     </style>
 </head>
 @{
-    string userId = Server.UrlDecode(HttpContext.Current.Request.Cookies["User"]?.Values["Id"]);
+    string userId = HttpContext.Current.Request.Cookies["User"]?.Values["Id"];
     string userName = Server.UrlDecode(HttpContext.Current.Request.Cookies["User"]?.Values["Name"]);
 }
 <body>
@@ -52,12 +55,21 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">文章</a>
                             <ul class="dropdown-menu">
-                                <li class="dropdown-item">
-                                    <a href="/Article/List"><span class="fa fa-list fa-fw"></span>文章列表</a>
-                                </li>
-                                <li class="dropdown-item">
-                                    <a href="/Article/New"><span class="fa fa-folder-open fa-fw"></span>新建文章</a>
-                                </li>
+                                @if (HttpContext.Current.Request.Cookies["User"] != null)
+                                {
+                                    <li class="dropdown-item">
+                                        <a href="/Article/List"><span class="fa fa-list fa-fw"></span>文章列表</a>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a href="/Article/New"><span class="fa fa-folder-open fa-fw"></span>新建文章</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="dropdown-item">
+                                        <a href="/Article/List"><span class="fa fa-list fa-fw"></span>文章列表</a>
+                                    </li>
+                                }
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -120,8 +132,6 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

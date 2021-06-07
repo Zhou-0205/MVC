@@ -16,6 +16,7 @@ namespace Entities
         public string IconPath { get; set; }
         public int BirthMonth { get; set; }
         public ConstelKind Constellation { get; set; }
+        public IList<Serie> Series { get; set; }
     }
     public enum ConstelKind
     {

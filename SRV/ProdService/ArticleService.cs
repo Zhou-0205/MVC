@@ -12,12 +12,16 @@ namespace ProdService
 {
     public class ArticleService : BaseService
     {
-        private UserRepository userRepository;
         private ArticleRepository articleRepository;
+        private SerieRepository serieRepository;
+        private KeywordRepository keywordRepository;
+        private UserRepository userRepository;
         public ArticleService()
         {
-            userRepository = new UserRepository(context);
             articleRepository = new ArticleRepository(context);
+            serieRepository = new SerieRepository(context);
+            keywordRepository = new KeywordRepository(context);
+            userRepository = new UserRepository(context);
         }
         public int Publish(NewModel model)
         {
@@ -25,11 +29,49 @@ namespace ProdService
             {
                 Title = model.Title,
                 Body = model.Body,
-                Author = GetCurrentUser(false)
+                Author = GetCurrentUser(false),
+                Digest = model.Digest
             };
+            article.Belong = serieRepository.Find(model.Belong.Id);
+
+            IList<string> strKeywords = keywordRepository.splitKeywords(model.Keywords);
+            IList<Keyword> objKeywords = new List<Keyword>();
+            Keyword keyword;
+            foreach (var item in strKeywords)
+            {
+                if (keywordRepository.GetByName(item) == null)
+                {
+                    Keyword newKeyword = new Keyword
+                    {
+                        Name = item
+                    };
+                    keywordRepository.Save(newKeyword);
+                    keyword = newKeyword;
+                }
+                else
+                {
+                    keyword = keywordRepository.GetByName(item);
+                }
+                objKeywords.Add(keyword);
+            }
+
+            article.Keywords = objKeywords;
+
             articleRepository.Save(article);
             return article.Id;
         }
+
+        //public void Appraise(int articleId, AppraiseModel model)
+        //{
+        //    Article article = articleRepository.Find(articleId);
+        //    article.Appraise = new Appraise
+        //    {
+        //        IsAgree = model.IsAgree,
+        //        Voter = GetCurrentUser()
+        //    };
+        //    article.Agree(article.Appraise.Voter);
+        //    articleRepository.Save(article);
+        //}
         public void Edit(int id, EditModel model)
         {
             Article article = articleRepository.Find(id);
@@ -37,19 +79,29 @@ namespace ProdService
 
             articleRepository.Edit();
         }
-
-        public EditModel GetEdit(int id)
+        public EditModel GetEditById(int id)
         {
             Article article = articleRepository.Find(id);
             EditModel model = mapper.Map<EditModel>(article);
 
             return model;
         }
-
-        public SingleModel GetById(int id)
+        public SingleModel GetSingleById(int id)
         {
             Article article = articleRepository.Find(id);
-            SingleModel model = mapper.Map<SingleModel>(article);
+            //SingleModel model = mapper.Map<SingleModel>(article);
+            User user = userRepository.GetById(article.AuthorId);
+            SingleModel model = new SingleModel
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Body = article.Body,
+                Author = new UserModel
+                {
+                    Id = user.Id,
+                    Name = user.Name
+                }
+            };
 
             return model;
         }
