@@ -19,5 +19,6 @@ namespace SRV.ViewModel
 
         [Required(ErrorMessage = "* 邀请码不能为空")]
         public int InviteCode { get; set; }
+        public IList<SerieModel> Series { get; set; }
     }
 }
