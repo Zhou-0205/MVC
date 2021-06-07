@@ -25,6 +25,16 @@ namespace ProdService
             UserInfoModel model = mapper.Map<UserInfoModel>(user);
             return model;
         }
+        public UserModel GetByCurrent()
+        {
+            User user = GetCurrentUser();
+            UserModel model = new UserModel
+            {
+                Id=user.Id,
+                Name=user.Name
+            };
+            return model;
+        }
 
         public void Edit(int id, UserInfoModel model)
         {

@@ -12,5 +12,8 @@ namespace SRV.ViewModel
         public string Title { get; set; }
         public string Body { get; set; }
         public User Author { get; set; }
+        public IList<Keyword> Keywords { get; set; }
+        public Serie Belong { get; set; }
+        public string Digest { get; set; }
     }
 }

@@ -18,5 +18,9 @@ namespace Repositories
                 .Where(u => u.Name == name)
                 .SingleOrDefault();
         }
+        public User GetById(int? id)
+        {
+            return Dbset.Find(id);
+        }
     }
 }

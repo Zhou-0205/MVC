@@ -23,10 +23,6 @@ namespace Repositories
             context.SaveChanges();
             return entity.Id;
         }
-        public void Remove(T entity)
-        {
-
-        }
         public void Edit()
         {
             context.SaveChanges();
